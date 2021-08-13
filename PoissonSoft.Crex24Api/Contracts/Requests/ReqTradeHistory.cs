@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqTradeHistory: ReqBase
+    internal class ReqTradeHistory
     {
         [JsonProperty("instrument")]
         public string InstrumentTicker { get; set; }

@@ -2,7 +2,7 @@
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqDepositAddress: ReqBase
+    internal class ReqDepositAddress
     {
         [JsonProperty("currency")]
         public string CoinTicker { get; set; }

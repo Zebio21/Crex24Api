@@ -2,10 +2,10 @@
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqCurrencies : ReqBase
+    internal class ReqFilter
     {
         [JsonProperty("filter")]
-        public string[] CoinTickers { get; set; }
+        public string[] FilterItems { get; set; }
     }
 
 }

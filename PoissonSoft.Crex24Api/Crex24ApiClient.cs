@@ -1,6 +1,9 @@
 ﻿using System;
 using NLog;
+using PoissonSoft.Crex24Api.Account;
 using PoissonSoft.Crex24Api.MarketData;
+using PoissonSoft.Crex24Api.Trading;
+using PoissonSoft.Crex24Api.Transport;
 
 namespace PoissonSoft.Crex24Api
 {
@@ -9,10 +12,8 @@ namespace PoissonSoft.Crex24Api
     /// </summary>
     public sealed class Crex24ApiClient
     {
-
         private readonly Crex24ApiClientCredentials credentials;
-
-        internal ILogger Logger { get; }
+        private readonly ILogger logger;
 
         /// <summary>
         /// Constructor
@@ -22,9 +23,12 @@ namespace PoissonSoft.Crex24Api
         public Crex24ApiClient(Crex24ApiClientCredentials credentials, ILogger logger)
         {
             this.credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            var throttler = new Throttler(logger);
 
-            marketDataApi = new MarketDataApi();
+            marketDataApi = new MarketDataApi(throttler, logger);
+            tradingApi = new TradingApi(throttler, logger, credentials);
+            accountApi = new AccountApi(throttler, logger, credentials);
         }
 
         /// <summary>
@@ -32,5 +36,17 @@ namespace PoissonSoft.Crex24Api
         /// </summary>
         public IMarketDataApi MarketDataApi => marketDataApi;
         private readonly MarketDataApi marketDataApi;
+
+        /// <summary>
+        /// Trading Rest-API
+        /// </summary>
+        public ITradingApi TradingApi => tradingApi;
+        private readonly TradingApi tradingApi;
+
+        /// <summary>
+        /// Trading Rest-API
+        /// </summary>
+        public IAccountApi AccountApi => accountApi;
+        private readonly AccountApi accountApi;
     }
 }

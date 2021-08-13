@@ -47,10 +47,10 @@ namespace PoissonSoft.Crex24Api.MarketData
         /// <summary>
         /// Returns the list of all fees for currencies withdrawal.
         /// </summary>
-        /// <param name="coins">Optional. Comma-separated list of currencies for which the withdrawal fees is requested.
+        /// <param name="coin">Optional. Comma-separated list of currencies for which the withdrawal fees is requested.
         /// If the parameter is not specified, the withdrawal fees about all available currencies is returned</param>
         /// <returns></returns>
-        CrexFeeCurrency[] WithdrawalFees(string[] coins = null);
+        CrexFeeCurrency[] WithdrawalFees(string coin);
 
         /// <summary>
         /// Returns detailed information about transport blockchain for cryptocurrency.

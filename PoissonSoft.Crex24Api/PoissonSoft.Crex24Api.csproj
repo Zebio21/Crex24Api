@@ -10,9 +10,4 @@
     <PackageReference Include="NLog" Version="4.7.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Account\" />
-    <Folder Include="Trading\" />
-  </ItemGroup>
-
 </Project>

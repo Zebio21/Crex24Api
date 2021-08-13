@@ -2,7 +2,7 @@
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqWithdraw: ReqBase
+    internal class ReqWithdraw
     {
         /// <summary>
         /// Currency identifier

@@ -2,7 +2,7 @@
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqActiveOrders: ReqBase
+    internal class ReqInstrumentFilter
     {
         [JsonProperty("instrument")]
         public string[] InstrumentTickers { get; set; }

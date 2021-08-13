@@ -7,7 +7,7 @@ namespace PoissonSoft.Crex24Api.Utils
     {
         public static IWebProxy CreateProxy(Crex24ApiClientCredentials credentials)
         {
-            if (string.IsNullOrWhiteSpace(credentials.ProxyAddress)) return null;
+            if (string.IsNullOrWhiteSpace(credentials?.ProxyAddress)) return null;
             var res = new WebProxy
             {
                 Address = new Uri($"http://{credentials.ProxyAddress}"),

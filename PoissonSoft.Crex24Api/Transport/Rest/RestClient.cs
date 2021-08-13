@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
@@ -35,9 +36,11 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.throttler = throttler ?? throw new ArgumentNullException(nameof(throttler));
 
+            string apiKey = string.Empty;
             if (!string.IsNullOrWhiteSpace(credentials?.ApiKey) && !string.IsNullOrWhiteSpace(credentials.SecretKey))
             {
                 useSignature = true;
+                apiKey = credentials.ApiKey;
                 secretKey = Convert.FromBase64String(credentials.SecretKey);
             }
 
@@ -63,6 +66,10 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
                 BaseAddress = new Uri(baseEndpoint),
             };
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (useSignature)
+            {
+                httpClient.DefaultRequestHeaders.Add("X-CREX24-API-KEY", apiKey);
+            }
         }
 
 
@@ -76,7 +83,7 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
         /// <param name="reqParams">Данные запроса</param>
         /// <param name="highPriority">Признак запроса с высоким приоритетом</param>
         /// <returns></returns>
-        public TResp MakeRequest<TRec, TResp>(HttpMethod httpMethod, string urlPath, TRec reqParams, bool highPriority = false) where TRec : ReqBase
+        public TResp MakeRequest<TRec, TResp>(HttpMethod httpMethod, string urlPath, TRec reqParams, bool highPriority = false) where TRec : class
         {
             if (httpMethod != HttpMethod.Get && httpMethod != HttpMethod.Post)
                 throw new Exception($"Unsupported HTTP-method {httpMethod}");
@@ -109,7 +116,7 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
 
 
             var url = urlPath;
-            if (httpMethod == HttpMethod.Get && reqParams != null) url += reqParams.ToGetParams();
+            if (httpMethod == HttpMethod.Get && reqParams != null) url += ConvertingHelper.ToGetParams(reqParams);
 
             string body = null;
             if (httpMethod == HttpMethod.Post && reqParams != null)
@@ -120,14 +127,14 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
             string strResp;
             try
             {
-                using var content = body != null ? new StringContent(body, Encoding.UTF8) : null;
+                using var content = body != null ? new StringContent(body, Encoding.UTF8, "application/json") : null;
                 using var request = new HttpRequestMessage(httpMethod, url)
                 {
                     Content = content
                 };
                 if (useSignature)
                 {
-                    // TODO: Sign request
+                    SignRequest(request, body);
                 }
                 using var result = httpClient.SendAsync(request).Result;
                 strResp = result.Content.ReadAsStringAsync().Result;
@@ -171,6 +178,21 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
             }
         }
         
+        private void SignRequest(HttpRequestMessage request, string body)
+        {
+            var nonce = GetNonce();
+            request.Headers.Add("X-CREX24-API-NONCE", nonce.ToString());
+            var msg = Encoding.UTF8.GetBytes($"{httpClient.BaseAddress.PathAndQuery}{request.RequestUri}{nonce}{body ?? string.Empty}");
+            request.Headers.Add("X-CREX24-API-SIGN", Convert.ToBase64String(new HMACSHA512(secretKey).ComputeHash(msg)));
+        }
+
+        private long lastNonce = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        private long GetNonce()
+        {
+            return Interlocked.Increment(ref lastNonce);
+        }
+
+
         public void Dispose()
         {
             httpClient?.Dispose();

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqMoneyTransfers: ReqBase
+    internal class ReqMoneyTransfers 
     {
         [JsonIgnore]
         public CrexMoneyTransferType TransferTypeEnum

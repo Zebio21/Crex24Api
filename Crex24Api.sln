@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoissonSoft.Crex24Api", "PoissonSoft.Crex24Api\PoissonSoft.Crex24Api.csproj", "{6A4585BA-15A6-4644-9764-2F1795F155AE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{D1E956AE-42C4-42F2-A349-D2527932D1FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrexApi.Example", "CrexApi.Example\CrexApi.Example.csproj", "{AEF17B5A-0183-406F-B20C-669B63A881B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoissonSoft.CommonUtils", "PoissonSoft.CommonUtils\Src\PoissonSoft.CommonUtils\PoissonSoft.CommonUtils.csproj", "{A0FDCEEF-C3BF-419F-BB73-9BF0B669B96B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +21,21 @@ Global
 		{6A4585BA-15A6-4644-9764-2F1795F155AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A4585BA-15A6-4644-9764-2F1795F155AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A4585BA-15A6-4644-9764-2F1795F155AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF17B5A-0183-406F-B20C-669B63A881B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF17B5A-0183-406F-B20C-669B63A881B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF17B5A-0183-406F-B20C-669B63A881B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF17B5A-0183-406F-B20C-669B63A881B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0FDCEEF-C3BF-419F-BB73-9BF0B669B96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0FDCEEF-C3BF-419F-BB73-9BF0B669B96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0FDCEEF-C3BF-419F-BB73-9BF0B669B96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0FDCEEF-C3BF-419F-BB73-9BF0B669B96B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AEF17B5A-0183-406F-B20C-669B63A881B6} = {D1E956AE-42C4-42F2-A349-D2527932D1FB}
+		{A0FDCEEF-C3BF-419F-BB73-9BF0B669B96B} = {D1E956AE-42C4-42F2-A349-D2527932D1FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0DACC99-842E-4889-88A3-9DDBBF0F4DE5}

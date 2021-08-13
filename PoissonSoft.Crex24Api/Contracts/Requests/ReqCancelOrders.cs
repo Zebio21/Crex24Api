@@ -2,7 +2,7 @@
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqCancelOrders: ReqBase
+    internal class ReqCancelOrders
     {
         [JsonProperty("ids", NullValueHandling = NullValueHandling.Ignore)]
         public ulong[] OrderIds { get; set; }

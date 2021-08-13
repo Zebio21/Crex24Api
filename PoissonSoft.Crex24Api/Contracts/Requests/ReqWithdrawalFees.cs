@@ -2,7 +2,7 @@
 
 namespace PoissonSoft.Crex24Api.Contracts.Requests
 {
-    internal class ReqWithdrawalFees: ReqBase
+    internal class ReqWithdrawalFees
     {
         [JsonProperty("currency")]
         public string WithdrawingCoinTicker { get; set; }
