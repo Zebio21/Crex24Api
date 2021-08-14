@@ -10,7 +10,7 @@ namespace PoissonSoft.Crex24Api
     /// <summary>
     /// Client to work with Crex24 BotAPI
     /// </summary>
-    public sealed class Crex24ApiClient
+    public sealed class Crex24ApiClient: IDisposable
     {
         private readonly Crex24ApiClientCredentials credentials;
         private readonly ILogger logger;
@@ -48,5 +48,13 @@ namespace PoissonSoft.Crex24Api
         /// </summary>
         public IAccountApi AccountApi => accountApi;
         private readonly AccountApi accountApi;
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            marketDataApi?.Dispose();
+            tradingApi?.Dispose();
+            accountApi?.Dispose();
+        }
     }
 }
