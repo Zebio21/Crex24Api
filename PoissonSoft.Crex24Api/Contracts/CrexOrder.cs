@@ -14,7 +14,7 @@ namespace PoissonSoft.Crex24Api.Contracts
         /// Unique order identifier
         /// </summary>
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Date and time of creation

@@ -38,19 +38,19 @@ namespace PoissonSoft.Crex24Api.Trading
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        ulong[] CancelOrdersById(ulong[] ids);
+        long[] CancelOrdersById(long[] ids);
 
         /// <summary>
         /// Cancels all orders for each of the specified trade instruments.
         /// </summary>
         /// <param name="instruments">Array of identifiers of trade instruments for which all orders should be cancelled</param>
         /// <returns></returns>
-        ulong[] CancelOrdersByInstrument(string[] instruments);
+        long[] CancelOrdersByInstrument(string[] instruments);
 
         /// <summary>
         /// Cancels all active orders
         /// </summary>
         /// <returns></returns>
-        ulong[] CancelAllOrders();
+        long[] CancelAllOrders();
     }
 }

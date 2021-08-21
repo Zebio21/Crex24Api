@@ -48,24 +48,24 @@ namespace PoissonSoft.Crex24Api.Trading
         }
 
         /// <inheritdoc />
-        public ulong[] CancelOrdersById(ulong[] ids)
+        public long[] CancelOrdersById(long[] ids)
         {
             if (ids == null)
                 throw new Exception("В метод отмены ордеров по списку ID вместо массива передано значение null");
 
-            return client.MakeRequest<ReqCancelOrders, ulong[]>(HttpMethod.Post, "cancelOrdersById", new ReqCancelOrders
+            return client.MakeRequest<ReqCancelOrders, long[]>(HttpMethod.Post, "cancelOrdersById", new ReqCancelOrders
             {
                 OrderIds = ids
             });
         }
 
         /// <inheritdoc />
-        public ulong[] CancelOrdersByInstrument(string[] instruments)
+        public long[] CancelOrdersByInstrument(string[] instruments)
         {
             if (instruments == null)
                 throw new Exception("В метод отмены ордеров по списку инструментов вместо массива передано значение null");
 
-            return client.MakeRequest<ReqCancelOrders, ulong[]>(HttpMethod.Post, "cancelOrdersByInstrument",
+            return client.MakeRequest<ReqCancelOrders, long[]>(HttpMethod.Post, "cancelOrdersByInstrument",
                 new ReqCancelOrders
                 {
                     InstrumentTickers = instruments.Select(ConvertingHelper.InstrumentHumanToApi).ToArray()
@@ -73,9 +73,9 @@ namespace PoissonSoft.Crex24Api.Trading
         }
 
         /// <inheritdoc />
-        public ulong[] CancelAllOrders()
+        public long[] CancelAllOrders()
         {
-            return client.MakeRequest<ReqCancelOrders, ulong[]>(HttpMethod.Post, "cancelAllOrders", null);
+            return client.MakeRequest<ReqCancelOrders, long[]>(HttpMethod.Post, "cancelAllOrders", null);
         }
 
         /// <inheritdoc />
