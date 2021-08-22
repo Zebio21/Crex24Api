@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using NLog;
 using PoissonSoft.Crex24Api.Contracts;
+using PoissonSoft.Crex24Api.Contracts.Enums;
 using PoissonSoft.Crex24Api.Contracts.Requests;
 using PoissonSoft.Crex24Api.Transport;
 using PoissonSoft.Crex24Api.Transport.Rest;
@@ -60,11 +61,37 @@ namespace PoissonSoft.Crex24Api.MarketData
         }
 
         /// <inheritdoc />
+        public CrexOHLCVData[] OHLCVData(string instrument, Granularity granularityVal, int? limit = null)
+        {
+            return client.MakeRequest<ReqOHLCVData, CrexOHLCVData[]>(HttpMethod.Get, "ohlcv", new ReqOHLCVData
+            {
+                InstrumentTicker = instrument.InstrumentHumanToApi(),
+                Granularity = granularityVal,
+                Limit = limit
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexFeeSchedule[] TradingFeeSchedules()
+        {
+            return client.MakeRequest<ReqFilter, CrexFeeSchedule[]>(HttpMethod.Get, "tradingFeeSchedules", null);
+        }
+
+        /// <inheritdoc />
         public CrexFeeCurrency[] WithdrawalFees(string coin)
         {
             return client.MakeRequest<ReqWithdrawalFees, CrexFeeCurrency[]>(HttpMethod.Get, "withdrawalFees", new ReqWithdrawalFees
             {
                 WithdrawingCoinTicker = coin
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexCurrenciesWithdrawlFees[] CurrenciesWithdrawalFees(string[] coins = null)
+        {
+            return client.MakeRequest<ReqFilter, CrexCurrenciesWithdrawlFees[]>(HttpMethod.Get, "currenciesWithdrawalFees", new ReqFilter
+            {
+                FilterItems = coins
             });
         }
 

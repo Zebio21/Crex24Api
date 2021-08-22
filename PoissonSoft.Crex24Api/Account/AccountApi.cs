@@ -23,13 +23,7 @@ namespace PoissonSoft.Crex24Api.Account
         }
 
         // TODO:
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            client?.Dispose();
-        }
-
+        
         /// <inheritdoc />
         public CrexCoinBalance[] Balances(string[] coins = null, bool? nonZeroOnly = null)
         {
@@ -38,6 +32,35 @@ namespace PoissonSoft.Crex24Api.Account
                 CoinFilter = coins,
                 NonZeroBalancesOnly = nonZeroOnly
             });
+        }
+
+        /// <inheritdoc />
+        public CrexDepositAddress CryptoDepositAddress(string coin, string transports = null)
+        {
+            return client.MakeRequest<ReqDepositAddress, CrexDepositAddress>(HttpMethod.Get, "depositAddress", new ReqDepositAddress
+            {
+                CoinTicker = coin,
+                Transport = transports
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexTransferHistory[] MoneyTransferHistory(string transferType, string[] coins = null, 
+                                                        DateTime? from = null, DateTime? till = null, ushort? limit = null)
+        {
+            return client.MakeRequest<ReqMoneyTransfers, CrexTransferHistory[]>(HttpMethod.Get, "moneyTransfers", new ReqMoneyTransfers
+            {
+                TransferType = transferType,
+                CoinTickers = coins,
+                From = from,
+                Till = till,
+                Limit = limit
+            });
+        }
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            client?.Dispose();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using PoissonSoft.Crex24Api.Contracts;
+using PoissonSoft.Crex24Api.Contracts.Enums;
 
 namespace PoissonSoft.Crex24Api.MarketData
 {
@@ -45,12 +46,34 @@ namespace PoissonSoft.Crex24Api.MarketData
         CrexOrderBook OrderBook(string instrument, int? limit = null);
 
         /// <summary>
+        /// Returns the most recent OHLCV (Open, High, Low, Close, Volume) data for the specified instrument.
+        /// </summary>
+        /// <param name="instrument"></param>
+        /// <param name="granularityVal"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        CrexOHLCVData[] OHLCVData(string instrument, Granularity granularityVal, int? limit = null);
+
+        /// <summary>
+        /// Returns the list of all trading fee schedules with detailed information
+        /// </summary>
+        /// <returns></returns>
+        CrexFeeSchedule[] TradingFeeSchedules();
+        /// <summary>
         /// Returns the list of all fees for currencies withdrawal.
         /// </summary>
         /// <param name="coin">Optional. Comma-separated list of currencies for which the withdrawal fees is requested.
         /// If the parameter is not specified, the withdrawal fees about all available currencies is returned</param>
         /// <returns></returns>
         CrexFeeCurrency[] WithdrawalFees(string coin);
+
+        /// <summary>
+        /// Returns the list of all fees for currencies withdrawal
+        /// </summary>
+        /// <param name="coins">Optional. Comma-separated list of currencies for which the withdrawal fees is requested.
+        /// If the parameter is not specified, the withdrawal fees about all available currencies is returned</param>
+        /// <returns></returns>
+        CrexCurrenciesWithdrawlFees[] CurrenciesWithdrawalFees(string[] coins = null);
 
         /// <summary>
         /// Returns detailed information about transport blockchain for cryptocurrency.

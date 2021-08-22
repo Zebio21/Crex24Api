@@ -32,11 +32,32 @@ namespace PoissonSoft.Crex24Api.Trading
         }
 
         /// <inheritdoc />
+        public CrexOrder[] OrderStatus(ulong orderId)// TODO
+        {
+            return client.MakeRequest<ReqOrderTrades, CrexOrder[]>(HttpMethod.Get, "orderStatus", new ReqOrderTrades
+            {
+                OrderId = orderId
+            });
+        }
+
+        /// <inheritdoc />
         public CrexTrade[] OrderTrades(ulong orderId)
         {
             return client.MakeRequest<ReqOrderTrades, CrexTrade[]>(HttpMethod.Get, "orderTrades", new ReqOrderTrades
             {
                 OrderId = orderId
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexOrder OrderModification(ulong orderId, decimal? newPrice = null, decimal? newVolume = null, bool? strictValidation = null)
+        {
+            return client.MakeRequest<ReqOrderModification, CrexOrder>(HttpMethod.Post, "modifyOrder", new ReqOrderModification
+            {
+                OrderId = orderId,
+                NewPrice = newPrice,
+                NewVolume = newVolume,
+                StrictValidation = strictValidation
             });
         }
 
@@ -76,6 +97,36 @@ namespace PoissonSoft.Crex24Api.Trading
         public long[] CancelAllOrders()
         {
             return client.MakeRequest<ReqCancelOrders, long[]>(HttpMethod.Post, "cancelAllOrders", null);
+        }
+
+        /// <inheritdoc />
+        public CrexOrder[] OrderHistory(string[] instruments = null, DateTime? from = null, DateTime? till = null, ushort? limit = null)
+        {
+            return client.MakeRequest<ReqOrderHistory, CrexOrder[]>(HttpMethod.Post, "orderHistory", new ReqOrderHistory
+            {
+                InstrumentTicker = instruments,
+                From = from,
+                Till = till,
+                Limit = limit
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexTrade[] TradeHistory(string[] instruments = null, DateTime? from = null, DateTime? till = null, ushort? limit = null)
+        {
+            return client.MakeRequest<ReqOrderHistory, CrexTrade[]>(HttpMethod.Get, "tradeHistory", new ReqOrderHistory
+            {
+                InstrumentTicker = instruments,
+                From = from,
+                Till = till,
+                Limit = limit
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexFeeAndRebate FeeAndRebate()
+        {
+            return client.MakeRequest<ReqFilter, CrexFeeAndRebate>(HttpMethod.Get, "tradingFee", null);
         }
 
         /// <inheritdoc />
