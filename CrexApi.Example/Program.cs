@@ -25,9 +25,11 @@ namespace CrexApi.Example
             var apiClient = new Crex24ApiClient(credentials, logger);
 
             // TODO: 
+            new ActionManager(apiClient).Run();
 
-            var currencies = apiClient.MarketDataApi.Currencies();
-            var instruments = apiClient.MarketDataApi.Instruments(new[] { "BTC/USDT" });
+
+            //var currencies = apiClient.MarketDataApi.Currencies();
+            //var instruments = apiClient.MarketDataApi.Instruments(new[] { "BTC/USDT" });
 
         }
     }

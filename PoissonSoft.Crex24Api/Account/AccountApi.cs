@@ -25,7 +25,7 @@ namespace PoissonSoft.Crex24Api.Account
         // TODO:
         
         /// <inheritdoc />
-        public CrexCoinBalance[] Balances(string[] coins = null, bool? nonZeroOnly = null)
+        public CrexCoinBalance[] Balances(string coins = null, bool? nonZeroOnly = null)
         {
             return client.MakeRequest<ReqBalances, CrexCoinBalance[]>(HttpMethod.Get, "balance", new ReqBalances
             {
@@ -35,7 +35,7 @@ namespace PoissonSoft.Crex24Api.Account
         }
 
         /// <inheritdoc />
-        public CrexDepositAddress CryptoDepositAddress(string coin, string transports = null)
+        public CrexDepositAddress DepositAddress(string coin, string transports = null)
         {
             return client.MakeRequest<ReqDepositAddress, CrexDepositAddress>(HttpMethod.Get, "depositAddress", new ReqDepositAddress
             {
@@ -57,6 +57,46 @@ namespace PoissonSoft.Crex24Api.Account
                 Limit = limit
             });
         }
+
+        /// <inheritdoc />
+        public CrexTransferHistory[] MoneyTransferStatus(ulong transferId) //TODO
+        {
+            return client.MakeRequest<ReqOrderTrades, CrexTransferHistory[]>(HttpMethod.Get, "moneyTransferStatus", new ReqOrderTrades
+            {
+                OrderId = transferId,
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexWithdrawalPreview WithdrawalPreview(string currency, decimal amount,
+            string feeCurrency, bool? includeFee = null, string transport = null)
+        {
+            return client.MakeRequest<ReqWithdrawalPreview, CrexWithdrawalPreview>(HttpMethod.Get, "previewWithdrawal", new ReqWithdrawalPreview
+            {
+                CoinTicker = currency,
+                Amount = amount,
+                FeeCurrency = feeCurrency,
+                IncludeFee = includeFee,
+                Transport = transport
+            });
+        }
+
+        /// <inheritdoc />
+        public CrexTransferHistory Withdrawal(string currency, decimal amount,
+            string address, string feeCurrency, string paymentId = null, bool? includeFee = null, string transport = null)
+        {
+            return client.MakeRequest<ReqWithdrawal, CrexTransferHistory>(HttpMethod.Post, "withdraw", new ReqWithdrawal
+            {
+                CoinTicker = currency,
+                Amount = amount,
+                Address = address,
+                FeeCurrency = feeCurrency,
+                PaymentId = paymentId,
+                IncludeFee = includeFee,
+                Transport = transport
+            });
+        }
+
         /// <inheritdoc />
         public void Dispose()
         {

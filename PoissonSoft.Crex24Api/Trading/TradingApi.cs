@@ -102,7 +102,7 @@ namespace PoissonSoft.Crex24Api.Trading
         /// <inheritdoc />
         public CrexOrder[] OrderHistory(string[] instruments = null, DateTime? from = null, DateTime? till = null, ushort? limit = null)
         {
-            return client.MakeRequest<ReqOrderHistory, CrexOrder[]>(HttpMethod.Post, "orderHistory", new ReqOrderHistory
+            return client.MakeRequest<ReqOrderHistory, CrexOrder[]>(HttpMethod.Get, "orderHistory", new ReqOrderHistory
             {
                 InstrumentTicker = instruments,
                 From = from,

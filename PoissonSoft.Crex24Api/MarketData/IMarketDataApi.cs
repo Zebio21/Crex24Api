@@ -37,6 +37,14 @@ namespace PoissonSoft.Crex24Api.MarketData
         CrexQuote[] Tickers(string[] instruments = null);
 
         /// <summary>
+        /// Returns the list of recent trades made with the specified instrument
+        /// </summary>
+        /// <param name="instrument">Trade instrument for which the trades are requested</param>
+        /// <param name="limit">Optional. Maximum number of results per call. Accepted values: 1 - 1000</param>
+        /// <returns></returns>
+        CrexRecentTrade[] RecentTrades(string instrument, int? limit = null);
+
+        /// <summary>
         /// Returns information about bids and asks for the specified instrument, organized by price level.
         /// </summary>
         /// <param name="instrument">Trade instrument for which the order book is requested</param>
@@ -82,6 +90,6 @@ namespace PoissonSoft.Crex24Api.MarketData
         /// <param name="transport">Transport identifier (all available transports for currency are specified
         /// in the transports field of the Currency)</param>
         /// <returns></returns>
-        CrexBlockchainTransport[] CurrencyTransport(string coin, string transport);
+        CrexBlockchainTransport CurrencyTransport(string coin, string transport);
     }
 }

@@ -7,7 +7,7 @@ namespace PoissonSoft.Crex24Api.Contracts.Requests
         [JsonProperty("currency")]
         public string CoinTicker { get; set; }
 
-        [JsonProperty("transport")]
+        [JsonProperty("transport", NullValueHandling = NullValueHandling.Ignore)]
         public string Transport { get; set; }
     }
 }

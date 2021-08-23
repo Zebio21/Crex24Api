@@ -51,6 +51,16 @@ namespace PoissonSoft.Crex24Api.MarketData
         }
 
         /// <inheritdoc />
+        public CrexRecentTrade[] RecentTrades(string instrument, int? limit = null)
+        {
+            return client.MakeRequest<ReqOrderBook, CrexRecentTrade[]>(HttpMethod.Get, "recentTrades", new ReqOrderBook
+            {
+                InstrumentTicker = instrument.InstrumentHumanToApi(),
+                Limit = limit
+            });
+        }
+        
+        /// <inheritdoc />
         public CrexOrderBook OrderBook(string instrument, int? limit = null)
         {
             return client.MakeRequest<ReqOrderBook, CrexOrderBook>(HttpMethod.Get, "orderBook", new ReqOrderBook
@@ -96,9 +106,9 @@ namespace PoissonSoft.Crex24Api.MarketData
         }
 
         /// <inheritdoc />
-        public CrexBlockchainTransport[] CurrencyTransport(string coin, string transport)
+        public CrexBlockchainTransport CurrencyTransport(string coin, string transport)
         {
-            return client.MakeRequest<ReqDepositAddress, CrexBlockchainTransport[]>(HttpMethod.Get, "currencyTransport", 
+            return client.MakeRequest<ReqDepositAddress, CrexBlockchainTransport>(HttpMethod.Get, "currencyTransport", 
                 new ReqDepositAddress
                 {
                     CoinTicker = coin,
