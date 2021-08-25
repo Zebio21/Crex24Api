@@ -49,11 +49,12 @@ namespace CrexApi.Example
 
                 case ConsoleKey.C:
                     SafeCall(() =>
-                    {   //проверить не могу
+                    {   
                         var type = InputHelper.GetString("Type of money transfers: ");
-                        var currency = InputHelper.GetString("Currency: ");
+                        var cur = InputHelper.GetString("Currency: ");
+                        string[] currency = new[] {cur};
 
-                        var TransferHistoryInfo = apiClient.AccountApi.MoneyTransferHistory(type);
+                        var TransferHistoryInfo = apiClient.AccountApi.MoneyTransferHistory(type, currency);
                         Console.WriteLine(JsonConvert.SerializeObject(TransferHistoryInfo, Formatting.Indented));
                     });
                     return true;
@@ -61,8 +62,11 @@ namespace CrexApi.Example
                 case ConsoleKey.D:
                     SafeCall(() =>
                     {
-                        var id = InputHelper.GetLong("Identifier of money transfer: ");
-                        var TransferStatusInfo = apiClient.AccountApi.MoneyTransferStatus((ulong)id);
+                        long[] id = new long[2];
+                        id[0] = 1528018890;
+                        id[1] = 1528044768;
+
+                        var TransferStatusInfo = apiClient.AccountApi.MoneyTransferStatus(id);
                         Console.WriteLine(JsonConvert.SerializeObject(TransferStatusInfo, Formatting.Indented));
                     });
                     return true;

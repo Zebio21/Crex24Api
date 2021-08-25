@@ -11,7 +11,7 @@ namespace PoissonSoft.Crex24Api.Contracts.Requests
             get => CrexMoneyTransfer.TransferTypeStrToEnum(TransferType);
             set => TransferType = CrexMoneyTransfer.TransferTypeEnumToStr(value);
         }
-        [JsonProperty("type")]
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public string TransferType { get; set; }
 
         [JsonProperty("currency")]

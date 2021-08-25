@@ -41,7 +41,7 @@ namespace PoissonSoft.Crex24Api.Account
         /// <param name="limit">Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified,
         /// the number of results is limited to 100</param>
         /// <returns></returns>
-        CrexTransferHistory[] MoneyTransferHistory(string transferType, string[] coins = null,
+        CrexTransferHistory[] MoneyTransferHistory(string transferType = null, string[] coins = null,
             DateTime? from = null, DateTime? till = null, ushort? limit = null);
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace PoissonSoft.Crex24Api.Account
         /// </summary>
         /// <param name="transferType">Comma-separated list of identifiers of money transfers for which the detailed information is requested</param>
         /// <returns></returns>
-        CrexTransferHistory[] MoneyTransferStatus(ulong transferType);
+        CrexTransferHistory[] MoneyTransferStatus(long[] transferType);
 
         /// <summary>
         /// Allows previewing a cryptocurrency withdrawal without actually conducting it.

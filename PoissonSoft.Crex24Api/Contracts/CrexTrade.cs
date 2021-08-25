@@ -17,7 +17,7 @@ namespace PoissonSoft.Crex24Api.Contracts
         /// with information for the seller - both with the same trade ID
         /// </summary>
         [JsonProperty("id")]
-        public ulong Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Identifier of the order that generated the trade

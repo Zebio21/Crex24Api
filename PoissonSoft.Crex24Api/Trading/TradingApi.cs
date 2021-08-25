@@ -32,16 +32,16 @@ namespace PoissonSoft.Crex24Api.Trading
         }
 
         /// <inheritdoc />
-        public CrexOrder[] OrderStatus(ulong orderId)// TODO
+        public CrexOrder[] OrderStatus(long[] orderId)
         {
-            return client.MakeRequest<ReqOrderTrades, CrexOrder[]>(HttpMethod.Get, "orderStatus", new ReqOrderTrades
+            return client.MakeRequest<ReqOrderStatus, CrexOrder[]>(HttpMethod.Get, "orderStatus", new ReqOrderStatus
             {
                 OrderId = orderId
             });
         }
 
         /// <inheritdoc />
-        public CrexTrade[] OrderTrades(ulong orderId)
+        public CrexTrade[] OrderTrades(long orderId)
         {
             return client.MakeRequest<ReqOrderTrades, CrexTrade[]>(HttpMethod.Get, "orderTrades", new ReqOrderTrades
             {
@@ -50,7 +50,7 @@ namespace PoissonSoft.Crex24Api.Trading
         }
 
         /// <inheritdoc />
-        public CrexOrder OrderModification(ulong orderId, decimal? newPrice = null, decimal? newVolume = null, bool? strictValidation = null)
+        public CrexOrder OrderModification(long orderId, decimal? newPrice = null, decimal? newVolume = null, bool? strictValidation = null)
         {
             return client.MakeRequest<ReqOrderModification, CrexOrder>(HttpMethod.Post, "modifyOrder", new ReqOrderModification
             {

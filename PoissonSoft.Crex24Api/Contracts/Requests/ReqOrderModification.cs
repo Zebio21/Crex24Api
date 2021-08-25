@@ -8,7 +8,7 @@ namespace PoissonSoft.Crex24Api.Contracts.Requests
     internal class ReqOrderModification
     {
         [JsonProperty("id")]
-        public ulong OrderId { get; set; }
+        public long OrderId { get; set; }
 
         [JsonProperty("newPrice", NullValueHandling = NullValueHandling.Ignore)]
         public decimal? NewPrice { get; set; }

@@ -51,9 +51,11 @@ namespace CrexApi.Example
                 case ConsoleKey.B:
                     SafeCall(() =>
                     {
-                        var orderId = InputHelper.GetInt("orderId: ");
+                        long[] orderId = new long[2];
+                        orderId[0] = 1528018890;
+                        orderId[1] = 1528044768;
 
-                        var orderInfo = apiClient.TradingApi.OrderStatus((ulong)orderId);
+                        var orderInfo = apiClient.TradingApi.OrderStatus(orderId);
                         Console.WriteLine(JsonConvert.SerializeObject(orderInfo, Formatting.Indented));
                     });
                     return true;
@@ -63,7 +65,7 @@ namespace CrexApi.Example
                     {
                         var orderId = InputHelper.GetInt("orderId: ");
 
-                        var orderTradesInfo = apiClient.TradingApi.OrderTrades((ulong)orderId);
+                        var orderTradesInfo = apiClient.TradingApi.OrderTrades(orderId);
                         Console.WriteLine(JsonConvert.SerializeObject(orderTradesInfo, Formatting.Indented));
                     });
                     return true;
@@ -75,7 +77,7 @@ namespace CrexApi.Example
                         var nPrice = InputHelper.GetDecimal("New price: ");
                         var nVolume = InputHelper.GetDecimal("New volume: ");
 
-                        var orderModificationInfo = apiClient.TradingApi.OrderModification((ulong)id, nPrice, nVolume);
+                        var orderModificationInfo = apiClient.TradingApi.OrderModification(id, nPrice, nVolume);
                         Console.WriteLine(JsonConvert.SerializeObject(orderModificationInfo, Formatting.Indented));
                     });
                     return true;
@@ -100,9 +102,13 @@ namespace CrexApi.Example
                         switch (cancelType)
                         {
                              case 1:
-                                var ids = InputHelper.GetString("Cancel by ID: ");
 
-                                //orderInfo = apiClient.TradingApi.CancelOrdersById(ids);
+                                long[] ids = new long[2];
+                                ids[0] = 1528527859;
+                                ids[1] = 1528527937;
+
+
+                                orderInfo = apiClient.TradingApi.CancelOrdersById(ids);
                                 break;
                             case 2:
                                 var intruments = InputHelper.GetString("Cancel by instruments: ");

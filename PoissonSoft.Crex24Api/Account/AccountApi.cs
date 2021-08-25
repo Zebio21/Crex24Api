@@ -45,7 +45,7 @@ namespace PoissonSoft.Crex24Api.Account
         }
 
         /// <inheritdoc />
-        public CrexTransferHistory[] MoneyTransferHistory(string transferType, string[] coins = null, 
+        public CrexTransferHistory[] MoneyTransferHistory(string transferType = null, string[] coins = null, 
                                                         DateTime? from = null, DateTime? till = null, ushort? limit = null)
         {
             return client.MakeRequest<ReqMoneyTransfers, CrexTransferHistory[]>(HttpMethod.Get, "moneyTransfers", new ReqMoneyTransfers
@@ -59,9 +59,9 @@ namespace PoissonSoft.Crex24Api.Account
         }
 
         /// <inheritdoc />
-        public CrexTransferHistory[] MoneyTransferStatus(ulong transferId) //TODO
+        public CrexTransferHistory[] MoneyTransferStatus(long[] transferId)
         {
-            return client.MakeRequest<ReqOrderTrades, CrexTransferHistory[]>(HttpMethod.Get, "moneyTransferStatus", new ReqOrderTrades
+            return client.MakeRequest<ReqOrderStatus, CrexTransferHistory[]>(HttpMethod.Get, "moneyTransferStatus", new ReqOrderStatus
             {
                 OrderId = transferId,
             });
