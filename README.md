@@ -16,6 +16,8 @@ Alternatively, you can clone/download the repository and import into your projec
 Once the API wrapper object is created, you can call any of the associated functions. They will return a Promise which can be utlized with .then/.catch or async/await. Note that the Promise based approach will return directly whereas the async/await approach requires calling the function.
 
 ```
+private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+
 var credentials = new Crex24ApiClientCredentials
 {
 	ApiKey = "XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXXXX",
@@ -28,8 +30,8 @@ var apiClient = new Crex24ApiClient(credentials, logger);
 
 ## Balances
 ```
-GET https://api.crex24.com/v2/account/balance?currency=BBN,ETH&nonZeroOnly=false
 /*
+GET https://api.crex24.com/v2/account/balance?currency=BBN,ETH&nonZeroOnly=false
 Parameters
 (string)currency
 Optional. Comma-separated list of currencies for which the balance information is requested. If the parameter is not specified, 
@@ -46,8 +48,8 @@ var coinBalanceInfo = apiClient.AccountApi.Balances(currency, true);
 ```
 ## Crypto Deposit Address
 ```
-GET https://api.crex24.com/v2/account/depositAddress?currency=USDT&transport=ERC20
 /*
+GET https://api.crex24.com/v2/account/depositAddress?currency=USDT&transport=ERC20
 Parameters
 (string)currency
 Identifier of the cryptocurrency, that you would like to deposit
@@ -59,8 +61,8 @@ var coinDepositAddressInfo = apiClient.AccountApi.DepositAddress(currency);
 ```
 ## Money Transfer History
 ```
-GET https://api.crex24.com/v2/account/moneyTransfers?currency=ETH
 /*
+GET https://api.crex24.com/v2/account/moneyTransfers?currency=ETH
 Parameters
 (string)type	
 Optional. Filters money transfers by type, can have either of the two values:
@@ -86,8 +88,8 @@ var TransferHistoryInfo = apiClient.AccountApi.MoneyTransferHistory(type, curren
 
 ## Money Transfer Status
 ```
-GET https://api.crex24.com/v2/account/moneyTransferStatus?id=756446,737551
 /*
+GET https://api.crex24.com/v2/account/moneyTransferStatus?id=756446,737551
 Parameters
 (int)id
 Comma-separated list of identifiers of money transfers for which the detailed information is requested
@@ -97,8 +99,8 @@ var TransferStatusInfo = apiClient.AccountApi.MoneyTransferStatus(id);
 
 ## Crypto Withdrawal Preview
 ```
-GET https://api.crex24.com/v2/account/previewWithdrawal?currency=LTC&amount=10&feeCurrency=LTC&includeFee=true
 /*
+GET https://api.crex24.com/v2/account/previewWithdrawal?currency=LTC&amount=10&feeCurrency=LTC&includeFee=true
 Parameters
 (string)currency
 The value of parameter currency that will be specified in the actual withdrawal request
@@ -120,8 +122,8 @@ var WithdrawalPreviewInfo = apiClient.AccountApi.WithdrawalPreview(currency, amo
 
 ## Crypto Withdrawal
 ```
-POST https://api.crex24.com/v2/account/withdraw
 /*
+POST https://api.crex24.com/v2/account/withdraw
 Parameters
 (string)currency
 Currency identifier
@@ -153,10 +155,10 @@ var TransferStatusInfo = apiClient.AccountApi.Withdrawal(currency, amount, addre
 
 ## Currencies
 ```
-GET https://api.crex24.com/v2/public/currencies
 /*
+GET https://api.crex24.com/v2/public/currencies
 Parameters
-(string)currencies	
+(string[])currencies	
 Optional. Comma-separated list of currencies for which the detailed information is requested. If the parameter is not specified, the detailed information about all available currencies is returned
 */
 var CurrenciesInfo = apiClient.MarketDataApi.Currencies(currencies);
@@ -164,10 +166,10 @@ var CurrenciesInfo = apiClient.MarketDataApi.Currencies(currencies);
 
 ## Trade Instruments
 ```
-GET https://api.crex24.com/v2/public/instruments?filter=ETH-BTC,BTC-USDT
 /*
+GET https://api.crex24.com/v2/public/instruments?filter=ETH-BTC,BTC-USDT
 Parameters
-(string)instruments	
+(string[])instruments	
 Optional. Comma-separated list of instruments for which the detailed information is requested. If the parameter is not specified, the detailed information about all available instruments is returned
 */
 var instrumentsInfo = apiClient.MarketDataApi.Instruments(instruments);
@@ -175,8 +177,8 @@ var instrumentsInfo = apiClient.MarketDataApi.Instruments(instruments);
 
 ## Quotes (Tickers)
 ```
-GET https://api.crex24.com/v2/public/tickers?instrument=ETH-BTC,BTC-USDT
 /*
+GET https://api.crex24.com/v2/public/tickers?instrument=ETH-BTC,BTC-USDT
 Parameters
 (string[])instruments	
 Optional. Comma-separated list of tickers for which the detailed information is requested. If the parameter is not specified, the detailed information about all available tickers is returned
@@ -186,8 +188,8 @@ var instrumentsInfo = apiClient.MarketDataApi.Tickers(instruments);
 
 ## Recent Trades
 ```
-GET https://api.crex24.com/v2/public/recentTrades?instrument=LTC-BTC
 /*
+GET https://api.crex24.com/v2/public/recentTrades?instrument=LTC-BTC
 Parameters
 (string)instrument	
 Trade instrument for which the trades are requested
@@ -200,8 +202,8 @@ var recentTradesInfo = apiClient.MarketDataApi.RecentTrades(instrument, limit);
 
 ## Order Book
 ```
-GET https://api.crex24.com/v2/public/orderBook?instrument=LTC-BTC
 /*
+GET https://api.crex24.com/v2/public/orderBook?instrument=LTC-BTC
 Parameters
 (string)instrument	
 Trade instrument for which the order book is requested
@@ -214,8 +216,8 @@ var orderBookInfo = apiClient.MarketDataApi.OrderBook(instrument, limit);
 
 ## OHLCV Data
 ```
-GET https://api.crex24.com/v2/public/ohlcv?instrument=ETH-BTC&granularity=30m
 /*
+GET https://api.crex24.com/v2/public/ohlcv?instrument=ETH-BTC&granularity=30m
 Parameters
 (string)instrument	
 Trade instrument for which the OHLCV data is requested
@@ -238,10 +240,12 @@ var OHLCVInfo = apiClient.MarketDataApi.OHLCVData(instrument, granularity, limit
 ```
 GET https://api.crex24.com/v2/public/tradingFeeSchedules
 var feeSchedulesInfo = apiClient.MarketDataApi.TradingFeeSchedules();
+```
 
-Withdrawal Fees
-GET https://api.crex24.com/v2/public/withdrawalFees?currency=LTC
+## Withdrawal Fees
+```
 /*
+GET https://api.crex24.com/v2/public/withdrawalFees?currency=LTC
 Parameters
 (string)currency	
 Currency identifier
@@ -251,17 +255,18 @@ var withdrawalFeesInfo = apiClient.MarketDataApi.WithdrawalFees(currency);
 
 ## Currencies Withdrawal Fees
 ```
-GET https://api.crex24.com/v2/public/currenciesWithdrawalFees?filter=BTC,LTC
 /*
+GET https://api.crex24.com/v2/public/currenciesWithdrawalFees?filter=BTC,LTC
 Parameters
 (string[])currency	
 Optional. Comma-separated list of currencies for which the withdrawal fees is requested. If the parameter is not specified, the withdrawal fees about all available currencies is returned
 */
 var CurrenciesWithdrawalFeesInfo = apiClient.MarketDataApi.CurrenciesWithdrawalFees(currency);
-
-Currency Transport
-GET https://api.crex24.com/v2/public/currencyTransport?currency=USDT&transport=ERC20
+```
+## Currency Transport
+```
 /*
+GET https://api.crex24.com/v2/public/currencyTransport?currency=USDT&transport=ERC20
 Parameters
 (string)currency	
 Currency identifier
@@ -276,8 +281,8 @@ var currencyTransportInfo = apiClient.MarketDataApi.CurrencyTransport(currency, 
 
 ## Order Placement
 ```
-POST https://api.crex24.com/v2/trading/placeOrder
 /*
+POST https://api.crex24.com/v2/trading/placeOrder
 Parameters
 (string)instrument	
 Trade instrument for which the order should be placed, e.g. "ETH-BTC"
@@ -338,13 +343,13 @@ var orderInfo = apiClient.TradingApi.PlaceOrder(reqPlaceOrder);
 
 ## Order Status
 ```
-GET https://api.crex24.com/v2/trading/orderStatus?id=466747915,466748077
 /*
+GET https://api.crex24.com/v2/trading/orderStatus?id=466747915,466748077
 Parameters
-(int)id	
+(int[])ids	
 Comma-separated list of identifiers of orders for which the detailed information is requested
 */
-var orderInfo = apiClient.TradingApi.OrderStatus(id);
+var orderInfo = apiClient.TradingApi.OrderStatus(ids);
 
 Order Trades
 GET https://api.crex24.com/v2/trading/orderTrades?id=416475861
@@ -358,8 +363,8 @@ var orderTradesInfo = apiClient.TradingApi.OrderTrades(id);
 
 ## Order Modification
 ```
-POST https://api.crex24.com/v2/trading/modifyOrder
 /*
+POST https://api.crex24.com/v2/trading/modifyOrder
 (int)id	
 Identifier of the order that should be modified
 
@@ -386,8 +391,8 @@ var orderModificationInfo = apiClient.TradingApi.OrderModification(id, nPrice, n
 
 ## Active Orders
 ```
-GET https://api.crex24.com/v2/trading/activeOrders?instrument=ETH-BTC,BTC-USDT
 /*
+GET https://api.crex24.com/v2/trading/activeOrders?instrument=ETH-BTC,BTC-USDT
 Parameters
 (string[])instrument	
 Optional. Comma-separated list of trade instruments for which the active orders are requested. If the parameter is not specified, the active orders for all instruments are returned
@@ -399,8 +404,8 @@ var orderInfo = apiClient.TradingApi.ActiveOrders(instrument);
 
 ### Cancellation by ID
 ```
-POST https://api.crex24.com/v2/trading/cancelOrdersById
 /*
+POST https://api.crex24.com/v2/trading/cancelOrdersById
 Parameters
 (int[])ids	
 Array of identifiers of orders that should be cancelled
@@ -410,8 +415,8 @@ cancelOrderInfo = apiClient.TradingApi.CancelOrdersById(ids);
 
 ### Cancellation by Instrument
 ```
-POST https://api.crex24.com/v2/trading/cancelOrdersByInstrument
 /*
+POST https://api.crex24.com/v2/trading/cancelOrdersByInstrument
 (string[])instruments	
 Array of identifiers of trade instruments for which all orders should be cancelled
 */
@@ -420,15 +425,16 @@ cancelOrderInfo = apiClient.TradingApi.CancelOrdersByInstrument(instruments);
 
 ### Cancellation of All Orders
 ```
+POST https://api.crex24.com/v2/trading/cancelAllOrders
 cancelOrderInfo = apiClient.TradingApi.CancelAllOrders();
 ```
 
 ## Order History
 ```
-GET https://api.crex24.com/v2/trading/orderHistory?instrument=ETH-BTC,BTC-USDT
 /*
+GET https://api.crex24.com/v2/trading/orderHistory?instrument=ETH-BTC,BTC-USDT
 Parameters
-(string)instrument	
+(string[])instrument	
 Optional. Comma-separated list of trade instruments for which the information about orders is requested. If the parameter is not specified, the information about orders is provided for all instruments
 (datetime)from	
 Optional. The start point of the time frame from which the information about orders should be collected
@@ -437,16 +443,16 @@ Optional. The end point of the time frame from which the information about order
 (int)limit	
 Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, the number of results is limited to 100
 */
-var orderInfo = apiClient.TradingApi.OrderHistory(inst, null, null, limit);
+var orderInfo = apiClient.TradingApi.OrderHistory(instrument, null, null, limit);
 ```
 
 ## Trade History
 ```
-GET https://api.crex24.com/v2/trading/tradeHistory?instrument=LTC-BTC
 /*
+GET https://api.crex24.com/v2/trading/tradeHistory?instrument=LTC-BTC
 Parameters
 
-(string)instrument	
+(string[])instrument	
 Optional. Comma-separated list of trade instruments for which the information about trades is requested. If the parameter is not specified, the information about trades is provided for all instruments
 
 (datetime)from	
