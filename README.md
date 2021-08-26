@@ -10,8 +10,8 @@ PM> Install-Package PoissonSoft.Crex24Api -Version 1.0.0
 
 .NET CLI> dotnet add package PoissonSoft.Crex24Api --version 1.0.0
 
-<PackageReference Include="PoissonSoft.Crex24Api" Version="1.0.0" />
+PackageReference Include="PoissonSoft.Crex24Api" Version="1.0.0"
 
-> paket add PoissonSoft.Crex24Api --version 1.0.0
+paket add PoissonSoft.Crex24Api --version 1.0.0
 
 Alternatively, you can clone/download the repository and import into your project by file path.
