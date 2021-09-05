@@ -13,8 +13,7 @@ Alternatively, you can clone/download the repository and import into your projec
 
 # Using the API Wrapper
 
-Once the API wrapper object is created, you can call any of the associated functions. They will return a Promise which can be utlized with .then/.catch or async/await. Note that the Promise based approach will return directly whereas the async/await approach requires calling the function.
-
+Once the API wrapper object is created, you can call any of the associated functions.
 ```
 private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
 
