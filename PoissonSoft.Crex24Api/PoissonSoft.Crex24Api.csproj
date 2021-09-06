@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>PoissonSoft</Authors>
-    <Version>1.0.1</Version>
-    <Description>This is an open source project created to utilize the Crex24 v2 API to support automated, algorithmic trading.</Description>
+    <Version>1.0.2</Version>
+    <Description>Open source project created to utilize the Crex24 v2 API to support automated, algorithmic trading.</Description>
     <Title>Crex24API</Title>
     <PackageIcon>packageIcon.png</PackageIcon>
 
@@ -13,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="packageIcon.png" Pack="true" PackagePath="\"/>
+    <None Include="packageIcon.png" Pack="true" PackagePath="\" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.10" />
 
