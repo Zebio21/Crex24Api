@@ -33,8 +33,8 @@ var apiClient = new Crex24ApiClient(credentials, logger);
 GET https://api.crex24.com/v2/account/balance?currency=BBN,ETH&nonZeroOnly=false
 Parameters
 (string)currency
-Optional. Comma-separated list of currencies for which the balance information is requested. If the parameter is not specified, 
-the balance information is requested for all currencies
+Optional. Comma-separated list of currencies for which the balance information is requested. 
+If the parameter is not specified, the balance information is requested for all currencies
 
 (boolean)nonZeroOnly
 Optional. Can have either of the two values:
@@ -53,7 +53,9 @@ Parameters
 (string)currency
 Identifier of the cryptocurrency, that you would like to deposit
 (string)transport
-Optional. Identifier of the transport, that you would use to deposit. If the parameter is not specified and currency has multiple transports, the default transport will be used
+Optional. Identifier of the transport, that you would use to deposit. 
+If the parameter is not specified and currency has multiple transports, 
+the default transport will be used
 */
 
 var coinDepositAddressInfo = apiClient.AccountApi.DepositAddress(currency);
@@ -70,7 +72,8 @@ Optional. Filters money transfers by type, can have either of the two values:
 If the parameter is not specified, both the deposits and withdrawals are returned
 
 (string)currency	
-Optional. Comma-separated list of currencies for which the money transfer history is requested. If the parameter is not specified, the money transfers are returned for all currencies
+Optional. Comma-separated list of currencies for which the money transfer history is requested. 
+If the parameter is not specified, the money transfers are returned for all currencies
 
 (datetime)from	
 Optional. The start point of the time frame from which the money transfer history is collected
@@ -79,7 +82,8 @@ Optional. The start point of the time frame from which the money transfer histor
 Optional. The end point of the time frame from which the money transfer history is collected
 
 (int)limit
-Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, the number of results is limited to 100
+Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, 
+the number of results is limited to 100
 */
 
 var TransferHistoryInfo = apiClient.AccountApi.MoneyTransferHistory(type, currency);
@@ -128,12 +132,16 @@ Parameters
 Currency identifier
 
 (decimal)amount
-Withdrawal amount (the precision is limited to a number of decimal places specified in the withdrawalPrecision field of the Currency, the value is rounded automatically to meet the precision limitation)
+Withdrawal amount (the precision is limited to a number of decimal places specified
+in the withdrawalPrecision field of the Currency, the value is rounded automatically 
+to meet the precision limitation)
 (string)address	
 Crypto address to which the money will be transferred
 
 (string)paymentId
-Optional. Additional information (such as Payment ID, Message, Memo, etc.) that specifies the destination of money transfer along with the address. If this information is not required or not supported by the cryptocurrency, the parameter should be omitted
+Optional. Additional information (such as Payment ID, Message, Memo, etc.) that specifies the destination 
+of money transfer along with the address. If this information is not required or not supported 
+by the cryptocurrency, the parameter should be omitted
 
 (string)feeCurrency	
 Currency identifier to be used to pay the commission
@@ -145,7 +153,8 @@ false - amount will be deposited to the specified address, whereas the balance w
 The default value is false
 
 (string)transport
-Optional. Transport identifier. If the parameter is not specified and currency has multiple transports, the default transport will be used
+Optional. Transport identifier. If the parameter is not specified and currency has multiple transports, 
+the default transport will be used
 */
 var TransferStatusInfo = apiClient.AccountApi.Withdrawal(currency, amount, address, feeCurrency);
 ```
@@ -158,7 +167,8 @@ var TransferStatusInfo = apiClient.AccountApi.Withdrawal(currency, amount, addre
 GET https://api.crex24.com/v2/public/currencies
 Parameters
 (string[])currencies	
-Optional. Comma-separated list of currencies for which the detailed information is requested. If the parameter is not specified, the detailed information about all available currencies is returned
+Optional. Comma-separated list of currencies for which the detailed information is requested. 
+If the parameter is not specified, the detailed information about all available currencies is returned
 */
 var CurrenciesInfo = apiClient.MarketDataApi.Currencies(currencies);
 ```
@@ -169,7 +179,8 @@ var CurrenciesInfo = apiClient.MarketDataApi.Currencies(currencies);
 GET https://api.crex24.com/v2/public/instruments?filter=ETH-BTC,BTC-USDT
 Parameters
 (string[])instruments	
-Optional. Comma-separated list of instruments for which the detailed information is requested. If the parameter is not specified, the detailed information about all available instruments is returned
+Optional. Comma-separated list of instruments for which the detailed information is requested. 
+If the parameter is not specified, the detailed information about all available instruments is returned
 */
 var instrumentsInfo = apiClient.MarketDataApi.Instruments(instruments);
 ```
@@ -180,7 +191,8 @@ var instrumentsInfo = apiClient.MarketDataApi.Instruments(instruments);
 GET https://api.crex24.com/v2/public/tickers?instrument=ETH-BTC,BTC-USDT
 Parameters
 (string[])instruments	
-Optional. Comma-separated list of tickers for which the detailed information is requested. If the parameter is not specified, the detailed information about all available tickers is returned
+Optional. Comma-separated list of tickers for which the detailed information is requested. 
+If the parameter is not specified, the detailed information about all available tickers is returned
 */
 var instrumentsInfo = apiClient.MarketDataApi.Tickers(instruments);
 ```
@@ -194,7 +206,8 @@ Parameters
 Trade instrument for which the trades are requested
 
 (int)limit
-Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, the number of results is limited to 100
+Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, 
+the number of results is limited to 100
 */
 var recentTradesInfo = apiClient.MarketDataApi.RecentTrades(instrument, limit);
 ```
@@ -208,7 +221,8 @@ Parameters
 Trade instrument for which the order book is requested
 
 (int)limit	
-Optional. Maximum number of returned price levels (both buying and selling) per call. If the parameter is not specified, the number of levels is limited to 100
+Optional. Maximum number of returned price levels (both buying and selling) per call. 
+If the parameter is not specified, the number of levels is limited to 100
 */
 var orderBookInfo = apiClient.MarketDataApi.OrderBook(instrument, limit);
 ```
@@ -230,7 +244,8 @@ OHLCV data granularity, can have one of the following values:
 1mo - 1 month
 
 (int)limit	
-Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, the number of results is limited to 100
+Optional. Maximum number of results per call. Accepted values: 1 - 1000. 
+If the parameter is not specified, the number of results is limited to 100
 */
 var OHLCVInfo = apiClient.MarketDataApi.OHLCVData(instrument, granularity, limit);
 ```
@@ -258,7 +273,8 @@ var withdrawalFeesInfo = apiClient.MarketDataApi.WithdrawalFees(currency);
 GET https://api.crex24.com/v2/public/currenciesWithdrawalFees?filter=BTC,LTC
 Parameters
 (string[])currency	
-Optional. Comma-separated list of currencies for which the withdrawal fees is requested. If the parameter is not specified, the withdrawal fees about all available currencies is returned
+Optional. Comma-separated list of currencies for which the withdrawal fees is requested. 
+If the parameter is not specified, the withdrawal fees about all available currencies is returned
 */
 var CurrenciesWithdrawalFeesInfo = apiClient.MarketDataApi.CurrenciesWithdrawalFees(currency);
 ```
@@ -296,7 +312,8 @@ Optional. Order type. Accepted values:
 "limit" - limit order;
 "market" - market order;
 "stopLimit" - stop-limit order.
-The value must comply with the list of order types supported by the instrument (see the value of parameter supportedOrderTypes of the Instrument).
+The value must comply with the list of order types supported by the instrument 
+(see the value of parameter supportedOrderTypes of the Instrument).
 If the parameter is not specified, the default value "limit" is used.
 
 (string)timeInForce	
@@ -310,7 +327,8 @@ More about limit order lifecycle in the section Limit Order
 (decimal)volume*	
 The amount of base currency to be bought or sold.
 The value must be greater than or equal to the minVolume and less than or equal to the maxVolume of the Instrument.
-The volume expressed in quote currency (notional value, calculated as price × volume) must be greater than or equal to the minQuoteVolume and less than or equal to the maxQuoteVolume of the Instrument
+The volume expressed in quote currency (notional value, calculated as price × volume)
+must be greater than or equal to the minQuoteVolume and less than or equal to the maxQuoteVolume of the Instrument
 
 (decimal)price*	
 Order price.
@@ -323,7 +341,9 @@ The value must be greater than or equal to the minPrice and less than or equal t
 This parameter is mandatory for stop-limit orders only. In case of alternate order types, the value is ignored
 
 (boolean)strictValidation*	
-Optional. The values of parameters price and stopPrice must be multiples of tickSize, and the value of parameter volume must be a multiple of volumeIncrement of the Instrument. This field defines how such values should be processed, if they don’t meet the requirements:
+Optional. The values of parameters price and stopPrice must be multiples of tickSize, 
+and the value of parameter volume must be a multiple of volumeIncrement of the Instrument. 
+This field defines how such values should be processed, if they don’t meet the requirements:
 false - prices and volume will be rounded to meet the requirements;
 true - execution of the method will be aborted and an error message will be returned.
 The default value is false.
@@ -376,10 +396,14 @@ The value must be greater than or equal to the minPrice and less than or equal t
 Optional. New value of volume.
 If the parameter is not specified or its value is null or 0, the current value of remainingVolume is used.
 The value must be greater than or equal to the minVolume and less than or equal to the maxVolume of the Instrument.
-The volume expressed in quote currency (notional value, calculated as newPrice × newVolume) must be greater than or equal to the minQuoteVolume and less than or equal to the maxQuoteVolume of the Instrument
+The volume expressed in quote currency (notional value, calculated as newPrice × newVolume) 
+must be greater than or equal to the minQuoteVolume and less than or equal to the maxQuoteVolume of the Instrument
 
 (boolean)strictValidation*	
-Optional. The value of parameter newPrice must be a multiple of tickSize, and the value of parameter newVolume must be a multiple of volumeIncrement of the Instrument. This field defines how such values should be processed, if they are set explicitly in the request and don’t meet the requirements:
+Optional. The value of parameter newPrice must be a multiple of tickSize, 
+and the value of parameter newVolume must be a multiple of volumeIncrement of the Instrument. 
+This field defines how such values should be processed, if they are set explicitly in the request and don’t meet 
+the requirements:
 false - price and volume will be rounded to meet the requirements;
 true - execution of the method will be aborted and an error message will be returned.
 The default value is false
@@ -394,7 +418,8 @@ var orderModificationInfo = apiClient.TradingApi.OrderModification(id, nPrice, n
 GET https://api.crex24.com/v2/trading/activeOrders?instrument=ETH-BTC,BTC-USDT
 Parameters
 (string[])instrument	
-Optional. Comma-separated list of trade instruments for which the active orders are requested. If the parameter is not specified, the active orders for all instruments are returned
+Optional. Comma-separated list of trade instruments for which the active orders are requested. 
+If the parameter is not specified, the active orders for all instruments are returned
 */
 var orderInfo = apiClient.TradingApi.ActiveOrders(instrument);
 ```
@@ -434,13 +459,15 @@ cancelOrderInfo = apiClient.TradingApi.CancelAllOrders();
 GET https://api.crex24.com/v2/trading/orderHistory?instrument=ETH-BTC,BTC-USDT
 Parameters
 (string[])instrument	
-Optional. Comma-separated list of trade instruments for which the information about orders is requested. If the parameter is not specified, the information about orders is provided for all instruments
+Optional. Comma-separated list of trade instruments for which the information about orders is requested. 
+If the parameter is not specified, the information about orders is provided for all instruments
 (datetime)from	
 Optional. The start point of the time frame from which the information about orders should be collected
 (datetime)till	
 Optional. The end point of the time frame from which the information about orders should be collected
 (int)limit	
-Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, the number of results is limited to 100
+Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, 
+the number of results is limited to 100
 */
 var orderInfo = apiClient.TradingApi.OrderHistory(instrument, null, null, limit);
 ```
@@ -452,7 +479,8 @@ GET https://api.crex24.com/v2/trading/tradeHistory?instrument=LTC-BTC
 Parameters
 
 (string[])instrument	
-Optional. Comma-separated list of trade instruments for which the information about trades is requested. If the parameter is not specified, the information about trades is provided for all instruments
+Optional. Comma-separated list of trade instruments for which the information about trades is requested. 
+If the parameter is not specified, the information about trades is provided for all instruments
 
 (datetime)from	
 Optional. The start point of the time frame from which the information about trades should be collected
@@ -461,7 +489,8 @@ Optional. The start point of the time frame from which the information about tra
 Optional. The end point of the time frame from which the information about trades should be collected
 
 (int)limit	
-Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified, the number of results is limited to 100
+Optional. Maximum number of results per call. Accepted values: 1 - 1000. If the parameter is not specified,
+the number of results is limited to 100
 */
 
 var tradeHistoryInfo = apiClient.TradingApi.TradeHistory(instrument, null, null, limit);
