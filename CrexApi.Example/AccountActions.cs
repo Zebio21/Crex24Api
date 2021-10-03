@@ -30,7 +30,8 @@ namespace CrexApi.Example
                 case ConsoleKey.A:
                     SafeCall(() =>
                     {
-                        var currency = InputHelper.GetString("Currency: ");
+                        string[] currency = new string[1];
+                        currency[0] = InputHelper.GetString("Currency: ");
 
                         var coinBalanceInfo = apiClient.AccountApi.Balances(currency, true);
                         Console.WriteLine(JsonConvert.SerializeObject(coinBalanceInfo, Formatting.Indented));

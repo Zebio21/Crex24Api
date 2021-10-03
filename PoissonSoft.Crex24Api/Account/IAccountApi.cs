@@ -18,7 +18,7 @@ namespace PoissonSoft.Crex24Api.Account
         /// <param name="nonZeroOnly">Optional. Can have either of the two values: true - return only non-zero balances;
         /// false - return all balances. The default value is true</param>
         /// <returns></returns>
-        CrexCoinBalance[] Balances(string coins = null, bool? nonZeroOnly = null);
+        CrexCoinBalance[] Balances(string[] coins = null, bool? nonZeroOnly = null);
 
         /// <summary>
         /// Returns the address (and Payment ID, if necessary) for cryptocurrency deposit.

@@ -25,7 +25,7 @@ namespace PoissonSoft.Crex24Api.Account
         // TODO:
         
         /// <inheritdoc />
-        public CrexCoinBalance[] Balances(string coins = null, bool? nonZeroOnly = null)
+        public CrexCoinBalance[] Balances(string[] coins = null, bool? nonZeroOnly = null)
         {
             return client.MakeRequest<ReqBalances, CrexCoinBalance[]>(HttpMethod.Get, "balance", new ReqBalances
             {
