@@ -186,9 +186,24 @@ namespace PoissonSoft.Crex24Api.Transport.Rest
             request.Headers.Add("X-CREX24-API-SIGN", Convert.ToBase64String(new HMACSHA512(secretKey).ComputeHash(msg)));
         }
 
+        private static DateTimeOffset nextAdjustNonce = DateTimeOffset.UtcNow.AddMinutes(5);
         private static long lastNonce = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        private static readonly object syncNonce = new object();
         private static long GetNonce()
         {
+            if (DateTimeOffset.UtcNow > nextAdjustNonce)
+            {
+                lock (syncNonce)
+                {
+                    if (DateTimeOffset.UtcNow > nextAdjustNonce)
+                    {
+                        var ts = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                        if (ts > lastNonce) lastNonce = ts;
+                        nextAdjustNonce = DateTimeOffset.UtcNow.AddMinutes(5);
+                    }
+                }
+            }
+
             return Interlocked.Increment(ref lastNonce);
         }
 

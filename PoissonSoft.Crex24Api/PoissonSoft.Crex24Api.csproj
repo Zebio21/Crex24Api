@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>PoissonSoft</Authors>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Description>Open source project created to utilize the Crex24 v2 API to support automated, algorithmic trading.</Description>
     <Title>Crex24API</Title>
     <PackageIcon>packageIcon.png</PackageIcon>
